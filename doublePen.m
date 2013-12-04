@@ -1,7 +1,5 @@
 function res = doublePen()
 
-
-
 [t,M] = ode45(@diffeq, 0:60 , Minit);
 
 
@@ -34,5 +32,4 @@ function deltas = diffeq(t,x)
     
     
 end
-    
-    end   
+end   
