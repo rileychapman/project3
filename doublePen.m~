@@ -1,0 +1,28 @@
+
+
+
+
+
+function deltas = diffeq(t,x)
+    %unpack
+    theda1 = x(1);
+    thedaDot1 = x(2);
+    theda2 = x(3);
+    thedaDot2 = x(4);
+    g = x(5); 
+    m1=x(6);
+    m2=x(7); 
+    l1=x(8); 
+    l2=x(9);
+    
+    
+    %the equations
+    xdot(1) = x(2);
+    xdot(2) = 
+    
+    
+    
+    
+end
+    
+    
