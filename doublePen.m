@@ -11,12 +11,12 @@ L1 = 2; %meters
 L2 = 1; %meters
 
 
-Minit = [theda1Init,thedaDot1Init,theda2Init,gdef,m1def,m2def,L1,L2];
+Minit = [theda1Init,thedaDot1Init,theda2Init,thedaDot2Init,gdef,m1def,m2def,L1,L2];
 
 [t,M] = ode45(@diffeq, 0:60 , Minit);
 
 
-function deltas = diffeq(t,x)
+function xdot = diffeq(t,x)
     %unpack
     theda1 = x(1);
     thedaDot1 = x(2);
@@ -29,6 +29,8 @@ function deltas = diffeq(t,x)
     l2=x(9);
     
     
+    xdot=zeros(9,1);
+    
     %the equations
     xdot(1) = x(2);
     
@@ -40,8 +42,6 @@ function deltas = diffeq(t,x)
     
     xdot(4) = (((m1+m2)*(l1*x(2)^2+g*cos(x(1)))+l2*m2*x(4)^2*cos(x(1)-x(3)))*...
                 sin(x(1)-x(3)))/(l2*(m1+m2-m2*cos(x(1)-x(3))^2));
-    
-    
     
     
 end
