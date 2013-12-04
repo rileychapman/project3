@@ -1,5 +1,5 @@
 function res = doublePen()
-
+%initial conditions
 theda1Init = pi; %radians
 thedaDot1Init = 0; %radians/sec
 theda2Init = pi; %radians
