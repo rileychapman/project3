@@ -1,6 +1,19 @@
+function res = doublePen()
+
+theda1Init = 3;
+thedaDot1Init = 
+theda2Init = 
+thedaDot2Init = 
+gdef = 
+m1def =
+m2def = 
+L1 = 
+L2 = 
 
 
-[t,M] = ode45(@diffeq, 
+Minit = [theda1Init,thedaDot1Init,theda2Init,g,m1,m2,L1,L2]
+
+[t,M] = ode45(@diffeq, 0:60 , Minit);
 
 
 function deltas = diffeq(t,x)
@@ -32,5 +45,4 @@ function deltas = diffeq(t,x)
     
     
 end
-    
-    
+end   

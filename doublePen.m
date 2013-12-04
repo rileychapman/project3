@@ -1,5 +1,18 @@
 function res = doublePen()
 
+theda1Init = pi; %radians
+thedaDot1Init = 0; %radians/sec
+theda2Init = pi; %radians
+thedaDot2Init = 0; %radians/sec
+gdef = 9.81; %acceleration due to gravity
+m1def = 1; %kilograms
+m2def = 1; %kilograms
+L1 = 2; %meters
+L2 = 1; %meters
+
+
+Minit = [theda1Init,thedaDot1Init,theda2Init,gdef,m1def,m2def,L1,L2];
+
 [t,M] = ode45(@diffeq, 0:60 , Minit);
 
 
