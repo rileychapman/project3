@@ -62,12 +62,13 @@ animate(t,M);
 
     function animate(t,M)
         
-        for i = 1:20:length(t)
+        for i = 1:20:length(t)-2
      
         clf;
         hold on;
         plot(x1(i),y1(i),'ro', 'Markersize', 12, 'MarkerFaceColor', 'r')
         plot(x2(i), y2(i), 'bo', 'Markersize', 12, 'MarkerFaceColor', 'b')
+        plot(plot;;Arrow2d([x2(i), y2(i)],[x2(i+1), y2(i+2)]))
         line([0 x1(i)] ,[0 y1(i)]);
         line([x1(i) x2(i)], [y1(i) y2(i)]);
         axis([-L1-L2 L1+L2 -L1-L2 L1+L2]);
