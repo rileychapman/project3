@@ -70,6 +70,7 @@ animate(t,M);
         plot(x2(i), y2(i), 'bo', 'Markersize', 12, 'MarkerFaceColor', 'b')
         line([0 x1(i)] ,[0 y1(i)]);
         line([x1(i) x2(i)], [y1(i) y2(i)]);
+        plot::Arrow2d([x2(i), y2(i)], [x2(i+1), y2(i+1)]
         axis([-L1-L2 L1+L2 -L1-L2 L1+L2]);
         drawnow;
         end
