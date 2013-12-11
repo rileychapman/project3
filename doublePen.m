@@ -1,14 +1,14 @@
 function res = doublePen()
 %initial conditions
-theda1Init = -2; %radians
+theda1Init = -pi/3; %radians
 thedaDot1Init = 0; %radians/sec
-theda2Init = -2; %radians
-thedaDot2Init = 0; %radians/sec
+theda2Init = -pi/4; %radians
+thedaDot2Init = -2; %radians/sec
 g = -9.81; %acceleration due to gravity
-m1 = 1; %kilograms
-m2 = .5; %kilograms
-L1 = 2; %meters
-L2 = 2; %meters
+m1 = 200; %kilograms
+m2 = 100; %kilograms
+L1 = 10; %meters
+L2 = 4; %meters
 
 
 Minit = [theda1Init,thedaDot1Init,theda2Init,thedaDot2Init];
@@ -18,8 +18,8 @@ Minit = [theda1Init,thedaDot1Init,theda2Init,thedaDot2Init];
 
 x1 = L1 * sin(M(:,1));
 y1 = L1 * cos(M(:,1));
-x2 = x1 + sin(M(:,3));
-y2 = y1 + cos(M(:,3));
+x2 = x1 + L2* sin(M(:,3));
+y2 = y1 + L2* cos(M(:,3));
 
 
 
