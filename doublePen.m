@@ -61,6 +61,8 @@ animate(t,M);
     end
 
     function animate(t,M)
+
+        %animate the pendulum
         
         for i = 1:20:length(t)-2
      
