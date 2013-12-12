@@ -3,17 +3,17 @@ function res = doublePen()
 theda1Init = -pi/3; %radians
 thedaDot1Init = 0; %radians/sec
 theda2Init = -pi/4; %radians
-thedaDot2Init = -2; %radians/sec
+thedaDot2Init = -3; %radians/sec
 g = -9.81; %acceleration due to gravity
 m1 = 200; %kilograms
 m2 = 100; %kilograms
 L1 = 10; %meters
-L2 = 4; %meters
+L2 = 3; %meters
 
 
 Minit = [theda1Init,thedaDot1Init,theda2Init,thedaDot2Init];
 
-[t,M] = ode45(@diffeq, 0:.001:20 , Minit);
+[t,M] = ode45(@diffeq, 0:.001:30 , Minit);
 
 
 x1 = L1 * sin(M(:,1));
@@ -21,9 +21,9 @@ y1 = L1 * cos(M(:,1));
 x2 = x1 + L2* sin(M(:,3));
 y2 = y1 + L2* cos(M(:,3));
 
+W = projectiles(t,x2,y2);
 
-
-animate(t,M);
+animate(t,M,W);
 
 
 %plot_pendulum(t,M)
@@ -48,6 +48,33 @@ animate(t,M);
                 
     end
 
+    function W = projectiles(t,x2,y2)
+        for i = 1:30:length(t)-2
+            xVelInit = (x2(i+1) - x2(i))/.03;
+            yVelInit = (y2(i+1) - y2(i))/.03;
+            Vels = [x2(i), y2(i), xVelInit, yVelInit];
+        
+            [t,traj] = ode45(@trajectory, 1:.001:30, Vels);
+
+            W(i) = [traj(:,1); traj(:,2)];
+
+        end
+    end
+
+    function traj = trajectory(t,Vels)
+        x = Vels(1);
+        y = Vels(2);
+        Vx = Vels(3);
+        Vy = Vels(4);
+
+        dxdt =  Vx;
+        dydt = Vy;
+        dVxdt = 0;
+        dVydt = -9.81;
+
+        traj = [dxdt;dydt;dVxdt;dVydt];
+    end
+
     function plot_pendulum(t,M)
         hold on;
         plot(t,M(:,1), 'b')
@@ -64,7 +91,7 @@ animate(t,M);
 
         %animate the pendulum
         
-        for i = 1:20:length(t)-2
+        for i = 1:30:length(t)-2
      
         clf;
         hold on;
@@ -76,6 +103,9 @@ animate(t,M);
         yarrow = [y2(i), y2(i) + (y2(i+1)-y2(i))*150];
         plot(xarrow, yarrow)
         axis([-L1-L2-10 L1+L2+10 -L1-L2-10 L1+L2+10]);
+        
+
+
         drawnow;
         end
         
