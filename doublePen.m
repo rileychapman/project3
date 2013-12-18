@@ -21,9 +21,9 @@ y1 = L1 * cos(M(:,1));
 x2 = x1 + L2* sin(M(:,3));
 y2 = y1 + L2* cos(M(:,3));
 
-W = projectiles(t,x2,y2);
+%W = projectiles(t,x2,y2);
 
-animate(t,M);
+animate(t);
 
 
 %plot_pendulum(t,M)
@@ -49,16 +49,17 @@ animate(t,M);
     end
 
     function W = projectiles(t,x2,y2)
-        W = zeros( length(t),(3000/30)*2);
         
-        for i = 1:30:length(t)-2
+        
+        for i = 1:300:length(t)-2
             xVelInit = (x2(i+1) - x2(i))/.03;
             yVelInit = (y2(i+1) - y2(i))/.03;
             Vels = [x2(i), y2(i), xVelInit, yVelInit];
         
             [t,traj] = ode45(@trajectory, t, Vels);
 
-            W(i) = [traj(:,1); traj(:,2)];
+            W{i,1} = traj(:,1); %x trajectory values
+            W{i,2} = traj(:,2); %y trajectory values
 
         end
     end
@@ -89,9 +90,11 @@ animate(t,M);
         legend('Theta1','Theta1Dot','Theta2','Theta2Dot')
     end
 
-    function animate(t,M)
+    function animate(t,W)
 
         %animate the pendulum
+        
+        
         
         for i = 1:30:length(t)-2
      
