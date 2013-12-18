@@ -1,11 +1,10 @@
-resolution = 1000;
-Dist = zeros([1, resolution]);
-time = linspace(.5,30,resolution);
+Dist = zeros([1, 100]);
+time = linspace(.5,30,100);
 for i = 1:length(time)
 	currentTime = time(i);
   	Dist(i) = doublePen(currentTime);
 end
 plot(time, Dist)
-title('Distanced Launched', 'fontsize', 28)
+title('Distanced Launched', '
 xlabel('Time of Release (seconds)', 'fontsize', 15)
 ylabel('Distance Traveled', 'fontsize', 15)

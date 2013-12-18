@@ -8,7 +8,7 @@ function res = doublePen(time)
     m1 = 200; %kilograms
     m2 = 100; %kilograms
     L1 = 10; %meters
-    L2 = 3; %meters
+    L2 = 5; %meters
 
 
     Minit = [theda1Init,thedaDot1Init,theda2Init,thedaDot2Init];
@@ -39,14 +39,15 @@ function res = doublePen(time)
 
     [t2, M2] = ode45(@trajectory, [0 50], Derp, options);
     hold on
-%     plot(x2, y2)
+%     plot(x1, y1, 'r')
+%     plot(x2, y2)1
 %     plot(M2(:,1), M2(:,2), 'g')
 
     res = M2(end,1);
 
     %W = projectiles(t,x2,y2);
 
-    %animate(t);
+    animate(t);
 
 
     %plot_pendulum(t,M)
