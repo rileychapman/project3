@@ -1,4 +1,4 @@
-function res = doublePen()
+function res = doublePen(time)
 %initial conditions
 theda1Init = -pi/3; %radians
 thedaDot1Init = 0; %radians/sec
@@ -13,7 +13,7 @@ L2 = 3; %meters
 
 Minit = [theda1Init,thedaDot1Init,theda2Init,thedaDot2Init];
 
-[t,M] = ode45(@diffeq, 0:.001:30 , Minit);
+[t,M] = ode45(@diffeq, 0:.001:time , Minit);
 
 
 x1 = L1 * sin(M(:,1));
@@ -21,9 +21,29 @@ y1 = L1 * cos(M(:,1));
 x2 = x1 + L2* sin(M(:,3));
 y2 = y1 + L2* cos(M(:,3));
 
+startPosX = x2(end);
+startPosY = y2(end);
+startVelX = L1 * M(end,2)*cos(M(end,1)) + L2 * M(:,4) * cos(M(end,3));
+startVelY = -L1 * M(end,2)*sin(M(end,1)) - L2 * M(:,4) * sin(M(end,3));
+
+Derp= [startPosX; startPosY; startVelX; startVelY];
+
+
+options = odeset('Events', @events);
+
+function [value,isterminal,direction] = events(t,X)
+    value = X(2) + 20; %extract the current distance
+    isterminal = 1; %stop if the distance crosses 97
+    direction = -1; %but only if the distance is increasing
+end
+
+[t2, M2] = ode45(@trajectory, [0 50], Derp, options)
+
+res = M2(end,1)
+
 %W = projectiles(t,x2,y2);
 
-animate(t);
+%animate(t);
 
 
 %plot_pendulum(t,M)
