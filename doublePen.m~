@@ -39,9 +39,8 @@ function res = doublePen(time)
 
     [t2, M2] = ode45(@trajectory, [0 50], Derp, options);
     hold on
-    plot(x1, y1, 'r')
-    plot(x2, y2)
-    plot(M2(:,1), M2(:,2), 'g')
+%     plot(x2, y2)
+%     plot(M2(:,1), M2(:,2), 'g')
 
     res = M2(end,1);
 
