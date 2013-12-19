@@ -1,5 +1,4 @@
 function res = energy_val(t,m1,m2,L1,L2,M)
-
     x1 = L1 * sin(M(:,1));
     y1 = L1 * cos(M(:,1));
     x2 = x1 + L2* sin(M(:,3));

@@ -1,4 +1,5 @@
-function res = doublePen(time, toAnimate)
+function res = doublePen(time, toAnimate, toValidate)
+
     %initial conditions
     theda1Init = -pi/3; %radians
     thedaDot1Init = 0; %radians/sec
@@ -20,6 +21,11 @@ function res = doublePen(time, toAnimate)
     y1 = L1 * cos(M(:,1));
     x2 = x1 + L2* sin(M(:,3));
     y2 = y1 + L2* cos(M(:,3));
+    
+    if toValidate == 1
+        energy_val(t,m1, m2, L1, L2, M);
+    end
+    
 
     startPosX = x2(end);
     startPosY = y2(end);
@@ -101,8 +107,5 @@ function res = doublePen(time, toAnimate)
 %             ylabel('radians or radians/sec', 'fontsize', 18)
 %             legend('Theta1','Theta1Dot','Theta2','Theta2Dot')
 %         end
-
-       
-
 
 end   
