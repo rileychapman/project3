@@ -13,7 +13,7 @@ function res = doublePen(time)
 
     Minit = [theda1Init,thedaDot1Init,theda2Init,thedaDot2Init, g, m1, m2, L1, L2];
 
-    [t,M] = ode45(@diffeq, [0:.001:time] , Minit);
+    [t,M] = ode45(@diffeq, [0:.001:time] , Minit); 
 
 
     x1 = L1 * sin(M(:,1));
@@ -26,7 +26,7 @@ function res = doublePen(time)
     startVelX = L1 * M(end,2)*cos(M(end,1)) + L2 * M(end,4) * cos(M(end,3));
     startVelY = -L1 * M(end,2)*sin(M(end,1)) - L2 * M(end,4) * sin(M(end,3));
 
-    Derp= [startPosX; startPosY; startVelX; startVelY];
+    Derp = [startPosX; startPosY; startVelX; startVelY];
 
 
     options = odeset('Events', @events);

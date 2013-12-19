@@ -10,4 +10,6 @@
             dVydt = -9.81;
 
             traj = [dxdt;dydt;dVxdt;dVydt];
-        end
+            
+ end
+        
