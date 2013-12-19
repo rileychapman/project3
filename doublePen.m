@@ -22,7 +22,7 @@ function res = doublePen(time, toAnimate, toValidate)
     y2 = y1 + L2* cos(M(:,3));
     
     if toValidate == 1
-        energy_val(m1, m2, L1, L2, M);
+        energy_val(t,m1, m2, L1, L2, M);
     end
     
 
