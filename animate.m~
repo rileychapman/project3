@@ -39,20 +39,20 @@
                 
             clf;
             hold on;
-            plot(x1(i),y1(i),'go', 'Markersize', 6, 'MarkerFaceColor', 'g')
-            plot(x2(i), y2(i), 'bo', 'Markersize', 6, 'MarkerFaceColor', 'b')
+            plot(x1(i),y1(i),'go', 'Markersize', 12, 'MarkerFaceColor', 'g')
+            plot(x2(i), y2(i), 'bo', 'Markersize', 12, 'MarkerFaceColor', 'b')
             line([0 x1(i)] ,[0 y1(i)]);
             line([x1(i) x2(i)], [y1(i) y2(i)]);
             xarrow = [x2(i), x2(i) + (x2(i+1)-x2(i))*vectorArrowLength];
             yarrow = [y2(i), y2(i) + (y2(i+1)-y2(i))*vectorArrowLength];
             plot(xarrow, yarrow, 'r')
             
-            axis([-30 150 -20 140]);
+            axis([-30 squareDemension -squareDemension squareDemension]);
             
             
               
           
-            plot(xproj(i), yproj(i), 'ro', 'Markersize', 5, 'MarkerFaceColor', 'r');
+            plot(xproj(i), yproj(i), 'ro', 'Markersize', 6, 'MarkerFaceColor', 'r');
             drawnow;
             
             

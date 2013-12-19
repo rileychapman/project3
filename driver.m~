@@ -16,8 +16,6 @@ topThrow
 doublePen(topThrowTime, 1); 
 
 
-figure(2)
-hold on;
 plot(time, Dist)
 title('Distanced Launched', 'fontsize', 28)
 xlabel('Time of Release (seconds)', 'fontsize', 15)

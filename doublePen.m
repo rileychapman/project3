@@ -1,4 +1,4 @@
-function res = doublePen(time)
+function res = doublePen(time, toAnimate)
     %initial conditions
     theda1Init = -pi/3; %radians
     thedaDot1Init = 0; %radians/sec
@@ -13,7 +13,7 @@ function res = doublePen(time)
 
     Minit = [theda1Init,thedaDot1Init,theda2Init,thedaDot2Init, g, m1, m2, L1, L2];
 
-    [t,M] = ode45(@diffeq, [0:.001:time] , Minit); 
+    [t,M] = ode45(@diffeq, [0:.033:time] , Minit); 
 
 
     x1 = L1 * sin(M(:,1));
@@ -42,7 +42,7 @@ function res = doublePen(time)
         direction = -1; %but only if the distance is increasing
     end
 
-    [t2, M2] = ode45(@trajectory, [0 50], Derp, options);
+    [t2, M2] = ode45(@trajectory, 0:.033:50, Derp, options);
     hold on
 %     plot(x1, y1, 'r')
 %     plot(x2, y2)1
@@ -51,8 +51,22 @@ function res = doublePen(time)
     res = M2(end,1);
 
     %W = projectiles(t,x2,y2);
-
-    %animate(t);
+    
+    if toAnimate == 1
+        
+        [t3, M3] = ode45(@diffeq, 0:.033:t2(end), M(end,:));
+        
+        x1s = L1 * sin(M3(:,1));
+        y1s = L1 * cos(M3(:,1));
+        x2s = x1s + L2* sin(M3(:,3));
+        y2s = y1s + L2* cos(M3(:,3));
+        
+        W3 = [x1s, y1s, x2s, y2s];
+        
+        W = [x1, y1, x2, y2];
+        animate(t, W, M2, W3);
+    end
+    
 
 
     %plot_pendulum(t,M)
