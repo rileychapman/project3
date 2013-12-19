@@ -31,7 +31,7 @@ function res = doublePen(time)
     shartVelY = -L1 * M(end,2)*sin(M(end,1));
 
     Derp= [startPosX; startPosY; startVelX; startVelY];
-    Herp= 
+    Herp= [shartPosX; shartPosY; shartVelX; shartVelY];
 
     options = odeset('Events', @events);
 
