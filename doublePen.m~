@@ -1,4 +1,4 @@
-function res = doublePen(time)
+function res = doublePen(time, toAnimate)
     %initial conditions
     theda1Init = -pi/3; %radians
     thedaDot1Init = 0; %radians/sec
@@ -13,7 +13,7 @@ function res = doublePen(time)
 
     Minit = [theda1Init,thedaDot1Init,theda2Init,thedaDot2Init, g, m1, m2, L1, L2];
 
-    [t,M] = ode45(@diffeq, [0:.001:time] , Minit);
+    [t,M] = ode45(@diffeq, [0:.001:time] , Minit); 
 
 
     x1 = L1 * sin(M(:,1));
@@ -25,8 +25,13 @@ function res = doublePen(time)
     startPosY = y2(end);
     startVelX = L1 * M(end,2)*cos(M(end,1)) + L2 * M(end,4) * cos(M(end,3));
     startVelY = -L1 * M(end,2)*sin(M(end,1)) - L2 * M(end,4) * sin(M(end,3));
+    shartPosX = x1(end);
+    shartPosY = y1(end);
+    shartVelX = L1 * M(end,2)*cos(M(end,1));
+    shartVelY = -L1 * M(end,2)*sin(M(end,1));
 
     Derp= [startPosX; startPosY; startVelX; startVelY];
+    Herp= [shartPosX; shartPosY; shartVelX; shartVelY];
 
 
     options = odeset('Events', @events);
@@ -46,33 +51,16 @@ function res = doublePen(time)
     res = M2(end,1);
 
     %W = projectiles(t,x2,y2);
-
-    %animate(t);
+    
+    if toAnimate == 1
+    animate(t, M, M2);
+    end
+    
 
 
     %plot_pendulum(t,M)
 
-        function res = diffeq(t,x)
-            
-            x(:,5)
-
-
-
-            %the equations
-            thetaDot1 = x(2);
-
-            thetaDDot1 = -((g*(2*m1+m2)*sin(x(1))+m2*(g*sin(x(1)-2*x(3))+2*(L2*x(4)^2+...
-                        L1*x(2)^2*cos(x(1)-x(3)))*sin(x(1)-x(3))))/...
-                        (2*L1*(m1+m2-m2*cos(x(1)-x(3))^2)));
-
-            thetaDot2 = x(4);
-
-            thetaDDot2 = (((m1+m2)*(L1*x(2)^2+g*cos(x(1)))+L2*m2*x(4)^2*cos(x(1)-x(3)))*...
-                        sin(x(1)-x(3)))/(L2*(m1+m2-m2*cos(x(1)-x(3))^2));
-
-            res = [thetaDot1;thetaDDot1;thetaDot2;thetaDDot2];        
-
-        end
+        
 
 %         function W = projectiles(t,x2,y2)
 % 
@@ -90,19 +78,6 @@ function res = doublePen(time)
 %             end
 %         end
 
-        function traj = trajectory(t,Vels)
-            x = Vels(1);
-            y = Vels(2);
-            Vx = Vels(3);
-            Vy = Vels(4);
-
-            dxdt =  Vx;
-            dydt = Vy;
-            dVxdt = 0;
-            dVydt = -9.81;
-
-            traj = [dxdt;dydt;dVxdt;dVydt];
-        end
 
 %         function plot_pendulum(t,M)
 %             hold on;
@@ -116,33 +91,7 @@ function res = doublePen(time)
 %             legend('Theta1','Theta1Dot','Theta2','Theta2Dot')
 %         end
 
-        function animate(t,W)
-
-            %animate the pendulum
-
-
-
-            for i = 1:30:length(t)-2
-
-            clf;
-            hold on;
-            plot(x1(i),y1(i),'ro', 'Markersize', 12, 'MarkerFaceColor', 'r')
-            plot(x2(i), y2(i), 'bo', 'Markersize', 12, 'MarkerFaceColor', 'b')
-            line([0 x1(i)] ,[0 y1(i)]);
-            line([x1(i) x2(i)], [y1(i) y2(i)]);
-            xarrow = [x2(i), x2(i) + (x2(i+1)-x2(i))*150];
-            yarrow = [y2(i), y2(i) + (y2(i+1)-y2(i))*150];
-            plot(xarrow, yarrow)
-            axis([-L1-L2-10 L1+L2+10 -L1-L2-10 L1+L2+10]);
-
-
-
-            drawnow;
-            end
-
-
-
-        end
+       
 
 
 end   
