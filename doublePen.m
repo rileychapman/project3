@@ -13,8 +13,10 @@ function res = doublePen(time, toAnimate, toValidate)
 
 
     Minit = [theda1Init,thedaDot1Init,theda2Init,thedaDot2Init, g, m1, m2, L1, L2];
+    
+    options = odeset('RelTol', 1e-8);
 
-    [t,M] = ode45(@diffeq, [0:.033:time] , Minit); 
+    [t,M] = ode45(@diffeq, [0:.033:time] , Minit, options); 
 
 
     x1 = L1 * sin(M(:,1));
@@ -40,7 +42,7 @@ function res = doublePen(time, toAnimate, toValidate)
     Herp= [shartPosX; shartPosY; shartVelX; shartVelY];
 
 
-    options = odeset('Events', @events);
+    options2 = odeset('Events', @events, 'RelTol', 1e-8);
 
     function [value,isterminal,direction] = events(t,X)
         value = X(2) + 20; %extract the current distance
@@ -48,7 +50,7 @@ function res = doublePen(time, toAnimate, toValidate)
         direction = -1; %but only if the distance is increasing
     end
 
-    [t2, M2] = ode45(@trajectory, 0:.033:50, Derp, options);
+    [t2, M2] = ode45(@trajectory, 0:.033:50, Derp, options2);
     hold on
 %     plot(x1, y1, 'r')
 %     plot(x2, y2)1
@@ -60,7 +62,7 @@ function res = doublePen(time, toAnimate, toValidate)
     
     if toAnimate == 1
         
-        [t3, M3] = ode45(@diffeq, 0:.033:t2(end), M(end,:));
+        [t3, M3] = ode45(@diffeq, 0:.033:t2(end), M(end,:), options);
         
         x1s = L1 * sin(M3(:,1));
         y1s = L1 * cos(M3(:,1));
