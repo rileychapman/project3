@@ -18,6 +18,6 @@ function res = diffeq(t,x)
             thetaDDot2 = (((m1+m2)*(L1*x(2)^2+g*cos(x(1)))+L2*m2*x(4)^2*cos(x(1)-x(3)))*...
                         sin(x(1)-x(3)))/(L2*(m1+m2-m2*cos(x(1)-x(3))^2));
 
-            res = [thetaDot1;thetaDDot1;thetaDot2;thetaDDot2];        
+            res = [thetaDot1;thetaDDot1;thetaDot2;thetaDDot2,0,0,0,0,0];        
 
         end
